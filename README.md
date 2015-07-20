@@ -1,25 +1,23 @@
-[Popcorn Time for Android](https://git.popcorntime.io/popcorntime/android)  [![Build Status](http://ci.popcorntime.io/buildStatus/icon?job=Popcorn-Android)](http://ci.popcorntime.io/job/Popcorn-Android/)
+[Popcorn Time for Android TV](https://github.com/r87DtqFjKerJ/popcorn-android-tv)
 ----
 
-Allow any Android user to watch movies easily streaming from torrents, without any particular knowledge.
+This project is built on top of [Popcorn Time for Android](https://github.com/popcorn-official/popcorn-android)
+It uses the [Android TV Leanback framework](https://developer.android.com/training/tv/start/start.html) for a more TV-friendly UI, comparing to the Android mobile version.
 
-Visit the project's website at <http://popcorntime.io>.
+## Important Notes ##
+This project is NOT backward-compatible with the official popcorn-android version yet. It has been tested only on Nexus Player.
 
-* [Continuous Integration](http://ci.popcorntime.io/job/Popcorn-Android/)
-* [Issue Tracker](https://git.popcorntime.io/popcorntime/android/issues)
+## What's Working ##
+* Watching YouTube trailers
+* Steaming movie-type media
+* Subtitle support
+* In-app search for movie-type media
 
-## Community
+## What's NOT Working ##
+* TV-show-type media support
+* Showing results in Android TV's global search
+* Settings, including VPN support
 
-Keep track of Popcorn Time development and community activity.
-
-* Follow Popcorn Time on [Twitter](https://twitter.com/popcorntimetv), [Facebook](https://www.facebook.com/PopcornTimeTv) and [Google+](https://plus.google.com/+PopcorntimeIo).
-* Read and subscribe to the [The Official Popcorn Time Blog](http://blog.popcorntime.io).
-* Join in discussions on the [Popcorn Time Forum](https://discuss.popcorntime.io)
-* Connect with us on IRC at `#popcorntime` on freenode ([web access](http://webchat.freenode.net/?channels=popcorntime))
-
-## Getting Involved
-
-Want to report a bug, request a feature, contribute or translate Popcorn Time? Check out our in-depth guide to [Contributing to Popcorn Time](CONTRIBUTING.md).
 
 ## Build Instructions ##
 
@@ -47,19 +45,13 @@ You can use [Android Studio](http://developer.android.com/sdk/installing/studio.
      |                |-- assets         # base module assets
      |                |-- java           # base module java code
      |                `-- res            # base module resources
-    `|-- mobile                          # mobile module (smartphone/tablet application)
-     |    |-- build.gradle               # mobile build script
+    `|-- app                             # tv app module
+     |    |-- build.gradle               # tv app build script
      |    `-- src
      |          |-- main
      |                |-- java           # mobile module java code
-     |                `-- res            # mobile module resources
-    `|-- tv                              # tv module (Android TV application)
-     |    |-- build.gradle               # tv build script
-     |    `-- src
-     |          |-- main
-     |                |-- java           # tv module java code
-     |                `-- res            # tv module resources
-    `|-- vlc                             # vlc module (VLC mediaplayer library)
+     |                `-- res            # mobile module resources    
+    `|-- vlc                             # vlc module (unused. TV module uses Android's native VideoView.)
      |    |-- build.gradle               # vlc module build script
      |    `-- src
      |          |-- main
@@ -70,7 +62,7 @@ You can use [Android Studio](http://developer.android.com/sdk/installing/studio.
      |    `-- src
      |          |-- main
      |                |-- java           # xmlrpc module java code
-    `|-- connectsdk                      # connectsdk module
+    `|-- connectsdk                      # connectsdk module (unused. TV module doesn't need casting.)
           |-- build.gradle               # connectsdk build script
           `-- src
           |     |-- java                 # connectsdk module java code
@@ -80,27 +72,7 @@ You can use [Android Studio](http://developer.android.com/sdk/installing/studio.
                 |-- google_cast
                       |-- src            # connectsdk module google cast java code
 
-## Versioning
 
-For transparency and insight into our release cycle, and for striving to maintain backward compatibility, Popcorn Time will be maintained according to the [Semantic Versioning](http://semver.org/) guidelines as much as possible.
-
-###Beta versions
-
-Beta releases will be numbered with the following format:
-
-`0.<major>.<minor>-<patch>`
-
-###Stable versions
-
-Releases will be numbered with the following format:
-
-`<major>.<minor>.<patch>`
-
-
-Constructed with the following guidelines:
-* A new *major* release indicates a large change where backwards compatibility is broken.
-* A new *minor* release indicates a normal change that maintains backwards compatibility.
-* A new *patch* release indicates a bugfix or small change which does not affect compatibility.
 
 ## License
 
@@ -116,6 +88,4 @@ Note: some dependencies are external libraries, which might be covered by a diff
 
 ***
 
-If you want to contact us: [hello@popcorntime.io](mailto:hello@popcorntime.io)
-
-Copyright (c) 2014 Popcorn Time Foundation - Released under the [GPL V3 license](https://git.popcorntime.io/popcorntime/android/blob/development/LICENSE.md).
+Released under the [GPL V3 license](https://git.popcorntime.io/popcorntime/android/blob/development/LICENSE.md).
