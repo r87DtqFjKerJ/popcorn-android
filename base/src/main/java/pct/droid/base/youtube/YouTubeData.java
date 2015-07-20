@@ -98,6 +98,8 @@ public class YouTubeData {
         //Find out the URI string from the parameters
 
         //Populate the list of formats for the video
+        if (!argMap.containsKey("fmt_list"))
+            return null;
         String fmtList = URLDecoder.decode(argMap.get("fmt_list"), "utf-8");
         ArrayList<Format> formats = new ArrayList<Format>();
         if (null != fmtList) {

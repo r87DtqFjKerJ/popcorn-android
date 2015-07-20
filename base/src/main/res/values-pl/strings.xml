@@ -12,9 +12,6 @@
   <string name="episode">Odcinek</string>
   <string name="unknown_error">Coś poszło nie tak</string>
   <string name="torrent_failed">Nie można pobrać torrent-u</string>
-  <string name="running">Działa w tle</string>
-  <string name="tap_to_close">Kliknij by zamknąć</string>
-  <string name="tap_to_resume">Kliknij aby kontynuować</string>
   <!--Genres-->
   <string name="genre_all">Wszystkie</string>
   <string name="genre_action">Akcja</string>
@@ -79,6 +76,7 @@
   <string name="genre_supernatural">Supernatural</string>
   <string name="genre_vampire">Wampir</string>
   <!--Possible tabs-->
+  <string name="popular_now">POPULARNE</string>
   <string name="top_rated">NAJLEPIEJ OCENIANE</string>
   <string name="release_date">DATA WYDANIA</string>
   <string name="last_updated">OSTATNIO AKTUALIZOWANE</string>
@@ -88,5 +86,4 @@
   <string name="pairing_tv">Parowanie z telewizorem</string>
   <string name="confirm_tv">Proszę potwierdzić połączenie na swoim telewizorze</string>
   <string name="enter_pairing_code">Podaj kod parowania na telewizorze</string>
-  <string name="open_with">Otwórz z</string>
 </resources>

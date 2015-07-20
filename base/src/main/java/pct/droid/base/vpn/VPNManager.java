@@ -35,6 +35,7 @@ import ht.vpn.android.api.IOpenVPNAPIService;
 import ht.vpn.android.api.IOpenVPNStatusCallback;
 import pct.droid.base.utils.PackageUtils;
 import pct.droid.base.utils.ThreadUtils;
+import timber.log.Timber;
 
 public class VPNManager {
 

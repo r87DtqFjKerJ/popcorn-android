@@ -17,24 +17,29 @@
 
 package pct.droid.base.torrent;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import pct.droid.base.R;
 import pct.droid.base.providers.media.models.Media;
 import pct.droid.base.providers.media.models.Show;
 
 public class StreamInfo implements Parcelable {
-
+    private Media mMedia;
     private String mSubtitleLanguage;
     private String mQuality;
     private String mTorrentUrl;
     private String mVideoLocation;
-    private String mTitle;
-    private String mImageUrl;
-    private String mHeaderImageUrl;
-    private Boolean mIsShow = false;
-    private Integer mColor = -1;
-    private Media mMedia;
+    private Show mShow;
 
     public StreamInfo(String torrentUrl) {
         this(null, null, torrentUrl, null, null);
@@ -49,45 +54,24 @@ public class StreamInfo implements Parcelable {
     }
 
     public StreamInfo(Media media, Show show, String torrentUrl, String subtitleLanguage, String quality, String videoLocation) {
+        mMedia = media;
+        mShow = show;
         mTorrentUrl = torrentUrl;
         mSubtitleLanguage = subtitleLanguage;
         mQuality = quality;
         mVideoLocation = videoLocation;
-
-        if (media != null) {
-            if (show != null) {
-                mTitle = show.title == null ? "" : show.title;
-                mTitle += media.title == null ? "" : ": " + media.title;
-                mImageUrl = show.image;
-                mHeaderImageUrl = show.headerImage;
-                mColor = show.color;
-            } else {
-                mTitle = media.title == null ? "" : media.title;
-                mImageUrl = media.image;
-                mHeaderImageUrl = media.headerImage;
-                mColor = media.color;
-            }
-
-            mIsShow = show != null;
-
-            mMedia = media;
-        }
     }
 
     public boolean isShow() {
-        return mIsShow;
+        return null != mShow;
     }
 
-    public String getTitle() {
-        return mTitle;
+    public Show getShow() {
+        return mShow;
     }
 
-    public String getImageUrl() {
-        return mImageUrl;
-    }
-
-    public String getHeaderImageUrl() {
-        return mHeaderImageUrl;
+    public Media getMedia() {
+        return mMedia;
     }
 
     public String getSubtitleLanguage() {
@@ -106,14 +90,6 @@ public class StreamInfo implements Parcelable {
         return mVideoLocation;
     }
 
-    public Integer getPaletteColor() {
-        return mColor;
-    }
-
-    public Media getMedia() {
-        return mMedia;
-    }
-
     public void setSubtitleLanguage(String subtitleLanguage) {
         mSubtitleLanguage = subtitleLanguage;
     }
@@ -129,28 +105,22 @@ public class StreamInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeString(this.mSubtitleLanguage);
         dest.writeString(this.mQuality);
         dest.writeString(this.mTorrentUrl);
         dest.writeString(this.mVideoLocation);
-        dest.writeString(this.mImageUrl);
-        dest.writeString(this.mHeaderImageUrl);
-        dest.writeString(this.mTitle);
-        dest.writeInt(this.mIsShow ? 1 : 0);
-        dest.writeInt(this.mColor);
+        dest.writeParcelable(this.mShow, 0);
         dest.writeParcelable(this.mMedia, 0);
     }
 
     private StreamInfo(Parcel in) {
+        // TODO: figure out why mSubtitleLanguage disappears when mMedia was written first
         this.mSubtitleLanguage = in.readString();
         this.mQuality = in.readString();
         this.mTorrentUrl = in.readString();
         this.mVideoLocation = in.readString();
-        this.mImageUrl = in.readString();
-        this.mHeaderImageUrl = in.readString();
-        this.mTitle = in.readString();
-        this.mIsShow = in.readInt() == 1;
-        this.mColor = in.readInt();
+        this.mShow = in.readParcelable(Show.class.getClassLoader());
         this.mMedia = in.readParcelable(Media.class.getClassLoader());
     }
 

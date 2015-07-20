@@ -24,8 +24,8 @@ import java.util.Locale;
 
 public class LocaleUtils {
 
-    public static String getCurrentAsString() {
-        return getLanguageCode(getCurrent());
+    public static String getCurrent() {
+        return getLanguageCode(Locale.getDefault());
     }
 
     public static void setCurrent(Context context, Locale locale) {
@@ -36,8 +36,8 @@ public class LocaleUtils {
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
     }
 
-    public static Locale getCurrent() {
-        return Locale.getDefault();
+    public static Locale getCurrentAsLocale() {
+        return toLocale(getCurrent());
     }
 
     public static String getLanguageCode(Locale locale) {
@@ -57,7 +57,7 @@ public class LocaleUtils {
     }
 
     public static boolean currentLocaleIsRTL() {
-        return isRTL(toLocale(getCurrentAsString()));
+        return isRTL(toLocale(getCurrent()));
     }
 
     public static boolean isRTL(Locale locale) {

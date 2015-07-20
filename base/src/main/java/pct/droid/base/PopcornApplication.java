@@ -17,6 +17,7 @@
 
 package pct.droid.base;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -24,7 +25,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
 
-import com.sjl.foreground.Foreground;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
@@ -32,6 +32,7 @@ import com.squareup.picasso.Picasso;
 import org.videolan.vlc.VLCApplication;
 
 import java.io.File;
+import java.io.IOException;
 
 import pct.droid.base.beaming.BeamManager;
 import pct.droid.base.preferences.Prefs;
@@ -40,7 +41,6 @@ import pct.droid.base.updater.PopcornUpdater;
 import pct.droid.base.utils.FileUtils;
 import pct.droid.base.utils.LocaleUtils;
 import pct.droid.base.utils.PrefUtils;
-import pct.droid.base.utils.SignUtils;
 import pct.droid.base.utils.StorageUtils;
 import timber.log.Timber;
 
@@ -58,9 +58,7 @@ public class PopcornApplication extends VLCApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        sDefSystemLanguage = LocaleUtils.getCurrentAsString();
-
-        Foreground.init(this);
+        sDefSystemLanguage = LocaleUtils.getCurrent();
 
         Constants.DEBUG_ENABLED = false;
         int versionCode = 0;
@@ -106,19 +104,16 @@ public class PopcornApplication extends VLCApplication {
         Picasso.setSingletonInstance(builder.build());
 
         PopcornUpdater.getInstance(this).checkUpdates(false);
-
-
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        sDefSystemLanguage = LocaleUtils.getCurrentAsString();
+        sDefSystemLanguage = LocaleUtils.getCurrent();
     }
 
     @Override
     public void onTerminate() {
-        // Just, so that it exists. Cause it is not executed in production, the whole application is closed anyways on OS level.
         BeamManager.getInstance(getAppContext()).onDestroy();
         super.onTerminate();
     }

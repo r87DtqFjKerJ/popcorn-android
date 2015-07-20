@@ -1,10 +1,6 @@
 package com.frostwire.jlibtorrent;
 
-import com.frostwire.jlibtorrent.swig.bool_vector;
-import com.frostwire.jlibtorrent.swig.char_vector;
-import com.frostwire.jlibtorrent.swig.int64_vector;
-import com.frostwire.jlibtorrent.swig.int_vector;
-import com.frostwire.jlibtorrent.swig.unsigned_char_vector;
+import com.frostwire.jlibtorrent.swig.*;
 
 /**
  * @author gubatron

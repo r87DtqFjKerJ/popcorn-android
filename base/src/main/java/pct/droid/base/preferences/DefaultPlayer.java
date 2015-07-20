@@ -58,15 +58,6 @@ public class DefaultPlayer {
             returnMap.put(resolveInfo.activityInfo.name + DELIMITER + resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.applicationInfo.loadLabel(packageManager).toString());
         }
 
-        playerIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("/path/video.mp4"));
-        playerIntent.setDataAndType(Uri.parse("/path/video.mp4"), "video/mp4");
-
-        resolveInfoList = packageManager.queryIntentActivities(playerIntent, 0);
-
-        for (ResolveInfo resolveInfo : resolveInfoList) {
-            returnMap.put(resolveInfo.activityInfo.name + DELIMITER + resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.applicationInfo.loadLabel(packageManager).toString());
-        }
-
         return returnMap;
     }
 
@@ -120,6 +111,7 @@ public class DefaultPlayer {
                     intent.putExtra("title", String.format("%s S%dE%d - %s", episode.showName, episode.season, episode.episode, episode.title));
                 }
             }
+            intent.putExtra("position", 0);
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);

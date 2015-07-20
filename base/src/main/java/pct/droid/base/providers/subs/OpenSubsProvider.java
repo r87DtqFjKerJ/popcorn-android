@@ -25,11 +25,11 @@ import org.xmlrpc.android.XMLRPCException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import pct.droid.base.providers.media.models.Episode;
 import pct.droid.base.providers.media.models.Movie;
+import pct.droid.base.providers.media.models.Show;
 
 public class OpenSubsProvider extends SubsProvider {
 
@@ -43,7 +43,7 @@ public class OpenSubsProvider extends SubsProvider {
     }
 
     @Override
-    public void getList(final Episode episode, final Callback callback) {
+    public void getList(final Show show, final Episode episode, final Callback callback) {
         login(new XMLRPCCallback() {
             @Override
             public void onSuccess(long id, Object result) {
@@ -54,7 +54,7 @@ public class OpenSubsProvider extends SubsProvider {
                 final String seasonStr = Integer.toString(episode.season);
 
                 if (!token.isEmpty()) {
-                    search(episode, token, new XMLRPCCallback() {
+                    search(show, seasonStr, episodeStr, token, new XMLRPCCallback() {
                         @Override
                         public void onSuccess(long id, Object result) {
                             Map<String, Map<String, String>> returnMap = new HashMap<>();
@@ -70,7 +70,7 @@ public class OpenSubsProvider extends SubsProvider {
                                     }
 
                                     // episode check
-                                    if (Integer.parseInt(item.get("SeriesIMDBParent")) != Integer.parseInt(episode.imdbId.replace("tt", ""))) {
+                                    if (Integer.parseInt(item.get("SeriesIMDBParent")) != Integer.parseInt(show.imdbId.replace("tt", ""))) {
                                         continue;
                                     }
                                     if (!item.get("SeriesSeason").equals(seasonStr)) {
@@ -102,8 +102,8 @@ public class OpenSubsProvider extends SubsProvider {
                                         }
                                     }
                                 }
-                                returnMap.put(episode.videoId, episodeMap);
-                                callback.onSuccess(returnMap.get(episode.videoId));
+                                returnMap.put(show.videoId, episodeMap);
+                                callback.onSuccess(returnMap.get(show.videoId));
                             } else {
                                 callback.onFailure(new XMLRPCException("No subs found"));
                             }
@@ -144,17 +144,19 @@ public class OpenSubsProvider extends SubsProvider {
     /**
      * Search for subtitles by imdbId, season and episode
      *
-     * @param episode Episode
+     * @param show    Show
+     * @param season  Season number
+     * @param episode Episode number
      * @param token   Login token
      * @return SRT URL
      */
-    private void search(Episode episode, String token, XMLRPCCallback callback) {
+    private void search(Show show, String season, String episode, String token, XMLRPCCallback callback) {
         try {
             XMLRPCClient client = new XMLRPCClient(new URI(mApiUrl), "", "", mUserAgent);
-            Map<String, String> option = new HashMap<>();
-            option.put("imdbid", episode.imdbId.replace("tt", ""));
-            option.put("season", String.format(Locale.US, "%d", episode.season));
-            option.put("episode", String.format(Locale.US, "%d", episode.episode));
+            Map<String, String> option = new HashMap<String, String>();
+            option.put("imdbid", show.imdbId.replace("tt", ""));
+            option.put("season", season);
+            option.put("episode", episode);
             option.put("sublanguageid", "all");
             client.callAsync(callback, "SearchSubtitles", new Object[]{token, new Object[]{option}});
         } catch (URISyntaxException e) {

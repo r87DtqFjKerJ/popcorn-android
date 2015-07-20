@@ -41,6 +41,7 @@ import pct.droid.base.providers.BaseProvider;
 import pct.droid.base.providers.media.models.Episode;
 import pct.droid.base.providers.media.models.Media;
 import pct.droid.base.providers.media.models.Movie;
+import pct.droid.base.providers.media.models.Show;
 import pct.droid.base.subs.FatalParsingException;
 import pct.droid.base.subs.FormatASS;
 import pct.droid.base.subs.FormatSRT;
@@ -56,12 +57,12 @@ public abstract class SubsProvider extends BaseProvider {
 
     public abstract void getList(Movie movie, Callback callback);
 
-    public abstract void getList(Episode episode, Callback callback);
+    public abstract void getList(Show media, Episode episode, Callback callback);
 
     public interface Callback {
-        void onSuccess(Map<String, String> items);
+        public void onSuccess(Map<String, String> items);
 
-        void onFailure(Exception e);
+        public void onFailure(Exception e);
     }
 
     public static File getStorageLocation(Context context) {

@@ -17,7 +17,6 @@
 
 package pct.droid.base.utils;
 
-import org.mozilla.universalchardet.Constants;
 import org.mozilla.universalchardet.UniversalDetector;
 
 import java.io.BufferedReader;
@@ -49,7 +48,6 @@ public class FileUtils {
     static {
         sOverrideMap = new HashMap<>();
         sOverrideMap.put("tr", "ISO-8859-9");
-        sOverrideMap.put("sr", "Windows-1250");
     }
 
     /**
@@ -91,16 +89,15 @@ public class FileUtils {
      *
      * @param file Location
      */
-    public static boolean recursiveDelete(File file) {
+    public static void recursiveDelete(File file) {
         if (file.isDirectory()) {
             String[] children = file.list();
-            if (children == null) return false;
+            if (children == null) return;
             for (String child : children) {
                 recursiveDelete(new File(file, child));
             }
         }
-
-        return file.delete();
+        file.delete();
     }
 
     /**
@@ -142,8 +139,7 @@ public class FileUtils {
         charsetDetector.reset();
 
         if (detectedCharset == null || detectedCharset.isEmpty()) {
-            // UniversalDetector can't detect the charset so try to get charset from BOM.
-            detectedCharset = getCharsetFromBOM(bomInputStream.getBOM());
+            detectedCharset = "UTF-8";
         } else if ("MACCYRILLIC".equals(detectedCharset)) {
             detectedCharset = "Windows-1256";
         }
@@ -259,26 +255,4 @@ public class FileUtils {
         outStream.close();
     }
 
-
-    /**
-     * Get the charset from BOM if available.
-     *
-     * @param bom BOM of the file
-     * @return Charset
-     */
-    public static String getCharsetFromBOM(UnicodeBOMInputStream.BOM bom) {
-        if (UnicodeBOMInputStream.BOM.UTF_32_BE.equals(bom)) {
-            return Constants.CHARSET_UTF_32BE;
-        } else if (UnicodeBOMInputStream.BOM.UTF_32_LE.equals(bom)) {
-            return Constants.CHARSET_UTF_32LE;
-        } else if (UnicodeBOMInputStream.BOM.UTF_8.equals(bom)) {
-            return Constants.CHARSET_UTF_8;
-        } else if (UnicodeBOMInputStream.BOM.UTF_16_BE.equals(bom)) {
-            return Constants.CHARSET_UTF_16BE;
-        } else if (UnicodeBOMInputStream.BOM.UTF_16_LE.equals(bom)) {
-            return Constants.CHARSET_UTF_16LE;
-        }
-
-        return "UTF-8";
-    }
 }

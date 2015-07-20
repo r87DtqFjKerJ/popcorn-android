@@ -197,11 +197,10 @@ public class StorageUtils {
      * @return Ideal file location for caching
      */
     public static File getIdealCacheDirectory(Context context) {
-        File externalCacheDir = context.getExternalCacheDir();
-        if (getTotalExternalMemorySize() < getTotalInternalMemorySize() || externalCacheDir == null) {
+        if (getTotalExternalMemorySize() < getTotalInternalMemorySize()) {
             return context.getCacheDir();
         }
-        return externalCacheDir;
+        return context.getExternalCacheDir();
     }
 
     /**

@@ -11,10 +11,6 @@
   <string name="overview_not_available">Üzgünüz! Hiç gözden geçirme bilgisi yok.</string>
   <string name="episode">Bölüm</string>
   <string name="unknown_error">Bir şeyler ters gitti</string>
-  <string name="torrent_failed">Torrenti getirirken hata oluştu</string>
-  <string name="running">Arka planda Çalışıyor</string>
-  <string name="tap_to_close">Kapatmak İçin Dokunun</string>
-  <string name="tap_to_resume">Devam etmek için dokun</string>
   <!--Genres-->
   <string name="genre_all">Hepsi</string>
   <string name="genre_action">Aksiyon</string>
@@ -79,6 +75,7 @@
   <string name="genre_supernatural">Doğaüstü</string>
   <string name="genre_vampire">Vampir</string>
   <!--Possible tabs-->
+  <string name="popular_now">ŞU ANDA POPÜLER</string>
   <string name="top_rated">En Çok Oylanan</string>
   <string name="release_date">Yayınlanma Tarihi</string>
   <string name="last_updated">SON GÜNCELLENENLER</string>
@@ -88,5 +85,4 @@
   <string name="pairing_tv">TV ile Eşleştirme</string>
   <string name="confirm_tv">Lütfen TV\'nize bağlantıyı onaylayın</string>
   <string name="enter_pairing_code">TV\'deki Eşleşme Kodu\'nu girin</string>
-  <string name="open_with">Şununla aç:</string>
 </resources>

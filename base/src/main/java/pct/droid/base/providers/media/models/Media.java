@@ -21,6 +21,8 @@ import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +40,7 @@ public class Media implements Parcelable {
     public String image;
     public String fullImage;
     public String headerImage;
+    public String backgroundImage;
     public Map<String, String> subtitles;
     public int color = Color.parseColor("#1976D2");
     protected SubsProvider mSubsProvider = null;
@@ -59,6 +62,7 @@ public class Media implements Parcelable {
         image = in.readString();
         fullImage = in.readString();
         headerImage = in.readString();
+        backgroundImage = in.readString();
         color = in.readInt();
 
         String className = in.readString();
@@ -110,6 +114,7 @@ public class Media implements Parcelable {
         dest.writeString(image);
         dest.writeString(fullImage);
         dest.writeString(headerImage);
+        dest.writeString(backgroundImage);
         dest.writeInt(color);
         dest.writeString(mSubsProvider != null ? mSubsProvider.getClass().getCanonicalName() : "");
         dest.writeString(mMediaProvider != null ? mMediaProvider.getClass().getCanonicalName() : "");
